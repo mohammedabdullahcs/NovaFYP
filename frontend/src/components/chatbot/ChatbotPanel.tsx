@@ -60,7 +60,9 @@ export default function ChatbotPanel() {
       const response = await sendMessage(input, history, 5);
       const assistantMessage: ChatMessage = {
         role: "assistant",
-        content: response?.bot_response || "Here are some ideas to explore."
+        content:
+          response?.bot_response?.replace(/\s+(\d+\.)/g, "\n\n$1") ||
+          "Here are some ideas to explore."
       };
       setMessages((prev) => [...prev, assistantMessage]);
       if (Array.isArray(response?.recommended_projects)) {

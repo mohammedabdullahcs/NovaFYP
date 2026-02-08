@@ -8,12 +8,22 @@ This project centers on a structured planning phase that guides teams from idea 
 
 1. **MVP Planning**
 	- Define the problem and core solution.
+	- Identify the target users and their top 2-3 pain points.
+	- Validate scope with a simple success metric (e.g., time to find ideas).
+	- Decide the MVP boundaries: must-have, should-have, out-of-scope.
 2. **Technical Architecture**
 	- Choose your tools and stack.
+	- Define the data flow: dataset ingestion -> search/recommendation -> API -> UI.
+	- Specify core services: vector store/embedding, RAG/chatbot, analytics.
+	- Plan deployment targets and environment variables.
 3. **User Stories**
 	- Map the complete user experience.
+	- Prioritize key flows: Discover, Search, Chatbot, Profile/Bookmarks.
+	- Add acceptance criteria for each story to keep scope honest.
 4. **Design System**
 	- Create the look, feel, and interactions.
+	- Define typography, color palette, and spacing scale.
+	- Establish reusable components: cards, filters, chatbot, dashboards.
 
 These steps are represented in the landing page so users understand the workflow immediately.
 
@@ -27,6 +37,10 @@ If Supabase keys are missing, the app falls back to mock auth for the UX prototy
 ## Dataset
 Kaggle source used for the dashboard reference:
 https://www.kaggle.com/datasets/nabeelqureshitiii/past-fyp-data
+
+## Repo Structure
+- `frontend/` - Next.js UI
+- `backend/` - Recommendation system API (cloned from https://github.com/mohammedabdullahcs/fyp_recommendation_system.git)
 
 ## API Guidelines (Backend Contract)
 Base URL example: `http://yourserver.com/api/v1`

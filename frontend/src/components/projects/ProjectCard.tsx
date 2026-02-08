@@ -97,29 +97,31 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </span>
         ))}
       </div>
-      <Link
-        href={`/app/project/${encodeURIComponent(String(projectId))}`}
-        className="inline-block mt-4 text-sm text-accent-500 hover:text-accent-400"
-      >
-        View details
-      </Link>
-      <button
-        type="button"
-        onClick={handleBookmarkToggle}
-        className="inline-block mt-2 text-xs text-text-200 hover:text-text-100"
-      >
-        {saved ? "Remove bookmark" : "Save bookmark"}
-      </button>
-      {project.source_url ? (
-        <a
-          href={project.source_url}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-block mt-2 text-xs text-text-200 hover:text-text-100"
+      <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
+        <Link
+          href={`/app/project/${encodeURIComponent(String(projectId))}`}
+          className="text-accent-500 hover:text-accent-400"
         >
-          Source URL
-        </a>
-      ) : null}
+          View details
+        </Link>
+        <button
+          type="button"
+          onClick={handleBookmarkToggle}
+          className="text-text-200 hover:text-text-100"
+        >
+          {saved ? "Remove bookmark" : "Save bookmark"}
+        </button>
+        {project.source_url ? (
+          <a
+            href={project.source_url}
+            target="_blank"
+            rel="noreferrer"
+            className="text-text-200 hover:text-text-100"
+          >
+            Source URL
+          </a>
+        ) : null}
+      </div>
     </motion.div>
   );
 }

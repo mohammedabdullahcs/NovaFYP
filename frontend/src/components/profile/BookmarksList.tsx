@@ -11,14 +11,29 @@ export default function BookmarksList() {
       return;
     }
 
-    const saved = localStorage.getItem("novafyp_bookmarks");
-    if (saved) {
-      try {
-        setBookmarks(JSON.parse(saved));
-      } catch {
+    const loadBookmarks = () => {
+      const saved = localStorage.getItem("novafyp_bookmarks");
+      if (saved) {
+        try {
+          setBookmarks(JSON.parse(saved));
+        } catch {
+          setBookmarks([]);
+        }
+      } else {
         setBookmarks([]);
       }
-    }
+    };
+
+    loadBookmarks();
+
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === "novafyp_bookmarks") {
+        loadBookmarks();
+      }
+    };
+
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
   }, []);
 
   const removeBookmark = (id?: string | number) => {
