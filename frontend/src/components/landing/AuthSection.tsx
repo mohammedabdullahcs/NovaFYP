@@ -72,8 +72,8 @@ export default function AuthSection() {
         <div className="flex-1">
           <h2 className="section-title">Start your discovery</h2>
           <p className="text-text-200 mt-3">
-            Create an account or sign in to unlock personalized ideas, smart
-            recommendations, and the NovaFYP Advisor chatbot.
+            Sign in to save preferences and get tailored recommendations, or
+            continue as a guest - full access is available.
           </p>
           <div className="mt-8 flex gap-3">
             {(["signin", "signup"] as AuthMode[]).map((item) => (
@@ -132,6 +132,13 @@ export default function AuthSection() {
                   className="w-6 h-6"
                 />
               </span>
+            </button>
+            <button
+              type="button"
+              onClick={() => router.push("/app")}
+              className="w-full border border-white/10 text-text-200 hover:text-text-100 px-6 py-3 rounded-xl transition"
+            >
+              Continue as guest
             </button>
           </form>
         </div>

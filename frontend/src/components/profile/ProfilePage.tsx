@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import BookmarksList from "@/components/profile/BookmarksList";
@@ -10,6 +10,7 @@ import { supabase } from "@/lib/supabaseClient";
 
 export default function ProfilePage() {
   const router = useRouter();
+  const [userEmail, setUserEmail] = useState<string | null>(null);
   const [profile, setProfile] = useState({
     skills: "",
     interests: "",
@@ -20,6 +21,27 @@ export default function ProfilePage() {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [deleteError, setDeleteError] = useState("");
   const [deleteSuccess, setDeleteSuccess] = useState("");
+
+  useEffect(() => {
+    let isMounted = true;
+    const loadUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      if (isMounted) {
+        setUserEmail(data.user?.email ?? null);
+      }
+    };
+
+    loadUser();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUserEmail(session?.user?.email ?? null);
+    });
+
+    return () => {
+      isMounted = false;
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -87,23 +109,33 @@ export default function ProfilePage() {
           <h1 className="text-2xl font-display text-text-100">
             Your Profile
           </h1>
-          <div className="flex items-center gap-4">
+          {userEmail ? (
+            <div className="flex items-center gap-4">
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="text-xs text-text-200 hover:text-text-100"
+              >
+                Logout
+              </button>
+              <button
+                type="button"
+                onClick={handleDeleteAccount}
+                disabled={deleteLoading}
+                className="text-xs text-accent-500 hover:text-accent-400"
+              >
+                {deleteLoading ? "Deleting..." : "Delete account"}
+              </button>
+            </div>
+          ) : (
             <button
               type="button"
-              onClick={handleLogout}
+              onClick={() => router.push("/#auth")}
               className="text-xs text-text-200 hover:text-text-100"
             >
-              Logout
+              Sign in to save profile
             </button>
-            <button
-              type="button"
-              onClick={handleDeleteAccount}
-              disabled={deleteLoading}
-              className="text-xs text-accent-500 hover:text-accent-400"
-            >
-              {deleteLoading ? "Deleting..." : "Delete account"}
-            </button>
-          </div>
+          )}
         </div>
         {deleteError ? (
           <p className="text-sm text-accent-500 mt-3">{deleteError}</p>

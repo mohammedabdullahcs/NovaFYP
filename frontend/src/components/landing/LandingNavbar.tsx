@@ -7,9 +7,9 @@ const navLinks = [
 ];
 
 const appLinks = [
-  { label: "Discover", href: "/app", requiresAuth: true },
-  { label: "Dashboard", href: "/app/dashboard", requiresAuth: true },
-  { label: "Chatbot", href: "/app/chatbot", requiresAuth: true }
+  { label: "Discover", href: "/app" },
+  { label: "Dashboard", href: "/app/dashboard" },
+  { label: "Chatbot", href: "/app/chatbot" }
 ];
 
 export default function LandingNavbar() {
@@ -37,11 +37,6 @@ export default function LandingNavbar() {
               className="text-text-200 hover:text-text-100 transition flex items-center gap-2"
             >
               {item.label}
-              {item.requiresAuth ? (
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-text-200">
-                  Sign in
-                </span>
-              ) : null}
             </Link>
           ))}
         </div>
@@ -50,13 +45,13 @@ export default function LandingNavbar() {
             href="#auth"
             className="text-sm text-text-200 hover:text-text-100 transition"
           >
-            Sign In
+            Sign In (optional)
           </Link>
           <Link
             href="#auth"
             className="bg-brand-500 hover:bg-brand-400 text-white px-4 py-2 rounded-xl transition shadow-glow text-sm"
           >
-            Get Started
+            Optional Sign In
           </Link>
         </div>
       </div>
