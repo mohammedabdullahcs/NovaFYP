@@ -8,6 +8,11 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   const projectId = project.id ?? project.title;
+  const technologies = Array.isArray(project.technologies)
+    ? project.technologies
+    : typeof project.technologies === "string"
+      ? project.technologies.split(",").map((item) => item.trim()).filter(Boolean)
+      : [];
 
   return (
     <motion.div
@@ -38,7 +43,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </p>
       ) : null}
       <div className="mt-4 flex flex-wrap gap-2">
-        {(project.technologies || []).slice(0, 4).map((tech) => (
+        {technologies.slice(0, 4).map((tech) => (
           <span
             key={tech}
             className="text-xs px-2 py-1 rounded-full bg-white/5 text-text-200"

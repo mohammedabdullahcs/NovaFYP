@@ -59,6 +59,12 @@ export default function ProjectDetailPage() {
     return <EmptyState title="Project not found" description="Try another idea." />;
   }
 
+  const technologies = Array.isArray(project.technologies)
+    ? project.technologies
+    : typeof project.technologies === "string"
+      ? project.technologies.split(",").map((item) => item.trim()).filter(Boolean)
+      : [];
+
   return (
     <div className="space-y-8">
       <div className="glass-card rounded-2xl p-8">
@@ -76,7 +82,7 @@ export default function ProjectDetailPage() {
               {project.year}
             </span>
           ) : null}
-          {(project.technologies || []).slice(0, 5).map((tech) => (
+          {technologies.slice(0, 5).map((tech) => (
             <span
               key={tech}
               className="px-3 py-1 rounded-full bg-white/5 text-text-200"
@@ -115,7 +121,7 @@ export default function ProjectDetailPage() {
           )}
           {activeTab === "Skills & Tools" && (
             <p>
-              Suggested stack: {project.technologies?.join(", ") || "TBD"}.
+              Suggested stack: {technologies.join(", ") || "TBD"}.
             </p>
           )}
           {activeTab === "Architecture" && (

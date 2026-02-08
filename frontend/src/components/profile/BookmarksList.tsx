@@ -21,7 +21,10 @@ export default function BookmarksList() {
     }
   }, []);
 
-  const removeBookmark = (id: string | number) => {
+  const removeBookmark = (id?: string | number) => {
+    if (!id) {
+      return;
+    }
     const next = bookmarks.filter((item) => item.id !== id);
     setBookmarks(next);
     if (typeof window !== "undefined") {

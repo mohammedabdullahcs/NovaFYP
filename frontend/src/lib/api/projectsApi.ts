@@ -5,7 +5,7 @@ export interface Project {
   title: string;
   abstract?: string;
   domain?: string;
-  technologies?: string[];
+  technologies?: string[] | string;
   year?: number;
   difficulty?: string;
   hardware?: boolean;
