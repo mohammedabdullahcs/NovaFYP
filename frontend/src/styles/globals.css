@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #0F0F12;
+  color: #C7C9D3;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #FFFFFF;
+  font-family: var(--font-space), var(--font-sora), sans-serif;
+}
+
+.glass-card {
+  background: rgba(26, 26, 34, 0.72);
+  border: 1px solid rgba(92, 123, 255, 0.2);
+  box-shadow: 0 10px 50px rgba(15, 15, 18, 0.45);
+  backdrop-filter: blur(16px);
+}
+
+.gradient-surface {
+  background: radial-gradient(circle at top left, rgba(59, 91, 255, 0.2), transparent 50%),
+    radial-gradient(circle at bottom right, rgba(255, 138, 0, 0.18), transparent 45%),
+    #0F0F12;
+}
+
+.input-surface {
+  background: rgba(15, 15, 18, 0.6);
+  border: 1px solid rgba(92, 123, 255, 0.2);
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+@media (min-width: 768px) {
+  .section-title {
+    font-size: 2.5rem;
+  }
+}
