@@ -9,7 +9,13 @@ interface TrendData {
   years?: Record<string, number>;
 }
 
-const fallbackTrends: TrendData = {
+type TrendPayload = {
+  domains: Record<string, number>;
+  technologies: Record<string, number>;
+  years: Record<string, number>;
+};
+
+const fallbackTrends: TrendPayload = {
   domains: {
     AI: 320,
     IoT: 210,
@@ -71,18 +77,19 @@ export default function AnalyticsDashboardPage() {
   );
   const displayTrends = hasTrendsData ? trends : fallbackTrends;
 
-  const effectiveDomains =
-    trends?.domains && Object.keys(trends.domains).length
-      ? trends.domains
-      : fallbackTrends.domains;
-  const effectiveTechnologies =
-    trends?.technologies && Object.keys(trends.technologies).length
-      ? trends.technologies
-      : fallbackTrends.technologies;
-  const effectiveYears =
-    trends?.years && Object.keys(trends.years).length
-      ? trends.years
-      : fallbackTrends.years;
+  const safeDomains = trends?.domains ?? {};
+  const safeTechnologies = trends?.technologies ?? {};
+  const safeYears = trends?.years ?? {};
+
+  const effectiveDomains = Object.keys(safeDomains).length
+    ? safeDomains
+    : fallbackTrends.domains;
+  const effectiveTechnologies = Object.keys(safeTechnologies).length
+    ? safeTechnologies
+    : fallbackTrends.technologies;
+  const effectiveYears = Object.keys(safeYears).length
+    ? safeYears
+    : fallbackTrends.years;
 
   const domainEntries = Object.entries(effectiveDomains).sort((a, b) => b[1] - a[1]);
   const techEntries = Object.entries(effectiveTechnologies).sort((a, b) => b[1] - a[1]);
