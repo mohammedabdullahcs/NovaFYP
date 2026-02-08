@@ -7,7 +7,7 @@ const heroLottieUrl =
 
 export default function LandingHero() {
   return (
-    <section className="min-h-screen flex flex-col lg:flex-row items-center justify-between gap-12 px-6 py-16">
+    <section className="min-h-screen flex flex-col lg:flex-row items-center justify-between gap-12 px-6 pt-28 pb-16">
       <div className="flex-1">
         <motion.h1
           className="text-4xl md:text-5xl font-display text-text-100 leading-tight"
