@@ -65,7 +65,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       window.dispatchEvent(new Event("novafyp_bookmarks_updated"));
       window.dispatchEvent(
         new CustomEvent("novafyp_toast", {
-          detail: { message: "Bookmark saved", tone: "success" }
+          detail: {
+            message: "Bookmark saved. Find it on your profile page.",
+            tone: "success"
+          }
         })
       );
     }
