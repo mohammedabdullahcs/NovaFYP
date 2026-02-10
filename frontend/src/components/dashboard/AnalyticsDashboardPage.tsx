@@ -1,21 +1,9 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import LoadingState from "@/components/common/LoadingState";
-import { getTrends } from "@/lib/api/trendsApi";
+import { getTrends, type TrendData } from "@/lib/api/trendsApi";
 
-interface TrendData {
-  domains?: Record<string, number>;
-  technologies?: Record<string, number>;
-  years?: Record<string, number>;
-}
-
-type TrendPayload = {
-  domains: Record<string, number>;
-  technologies: Record<string, number>;
-  years: Record<string, number>;
-};
-
-const fallbackTrends: TrendPayload = {
+const fallbackTrends: Required<TrendData> = {
   domains: {
     AI: 320,
     IoT: 210,
@@ -77,9 +65,12 @@ export default function AnalyticsDashboardPage() {
   );
   const displayTrends = hasTrendsData ? trends : fallbackTrends;
 
-  const safeDomains = trends?.domains ?? {};
-  const safeTechnologies = trends?.technologies ?? {};
-  const safeYears = trends?.years ?? {};
+  const safeDomains: Record<string, number> =
+    trends?.domains ?? fallbackTrends.domains ?? {};
+  const safeTechnologies: Record<string, number> =
+    trends?.technologies ?? fallbackTrends.technologies ?? {};
+  const safeYears: Record<string, number> =
+    trends?.years ?? fallbackTrends.years ?? {};
 
   const effectiveDomains = Object.keys(safeDomains).length
     ? safeDomains

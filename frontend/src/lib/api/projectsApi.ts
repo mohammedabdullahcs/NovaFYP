@@ -22,12 +22,31 @@ export interface ProjectFilters {
   hardware?: boolean;
 }
 
+type ProjectsResponse = {
+  projects: Project[];
+};
+
+type ProjectResponse = {
+  project: Project;
+};
+
 export async function getProjects(filters?: ProjectFilters) {
-  const data = await cachedGet("/projects", { params: filters });
-  return data?.projects ?? data;
+  const data = await cachedGet<Project[] | ProjectsResponse>("/projects", {
+    params: filters
+  });
+  if (Array.isArray(data)) {
+    return data;
+  }
+  if (data && "projects" in data) {
+    return data.projects;
+  }
+  return [];
 }
 
 export async function getProjectById(id: string | number) {
-  const data = await cachedGet(`/projects/${id}`);
-  return data?.project ?? data;
+  const data = await cachedGet<Project | ProjectResponse>(`/projects/${id}`);
+  if (data && typeof data === "object" && "project" in data) {
+    return data.project;
+  }
+  return data as Project;
 }
