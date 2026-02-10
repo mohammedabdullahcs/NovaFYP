@@ -44,17 +44,6 @@ export default function BookmarksList() {
     };
   }, []);
 
-  const removeBookmark = (id?: string | number) => {
-    if (!id) {
-      return;
-    }
-    const next = bookmarks.filter((item) => item.id !== id);
-    setBookmarks(next);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("novafyp_bookmarks", JSON.stringify(next));
-    }
-  };
-
   if (bookmarks.length === 0) {
     return (
       <EmptyState
@@ -67,16 +56,7 @@ export default function BookmarksList() {
   return (
     <div className="grid gap-6 md:grid-cols-2">
       {bookmarks.map((project) => (
-        <div key={String(project.id)}>
-          <ProjectCard project={project} />
-          <button
-            type="button"
-            onClick={() => removeBookmark(project.id)}
-            className="mt-2 text-xs text-accent-500 hover:text-accent-400"
-          >
-            Remove bookmark
-          </button>
-        </div>
+        <ProjectCard key={String(project.id)} project={project} />
       ))}
     </div>
   );
