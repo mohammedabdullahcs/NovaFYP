@@ -69,8 +69,6 @@ export default function AnalyticsDashboardPage() {
     trends?.domains ?? fallbackTrends.domains ?? {};
   const safeTechnologies: Record<string, number> =
     trends?.technologies ?? fallbackTrends.technologies ?? {};
-  const safeYears: Record<string, number> =
-    trends?.years ?? fallbackTrends.years ?? {};
 
   const effectiveDomains = Object.keys(safeDomains).length
     ? safeDomains
@@ -78,18 +76,11 @@ export default function AnalyticsDashboardPage() {
   const effectiveTechnologies = Object.keys(safeTechnologies).length
     ? safeTechnologies
     : fallbackTrends.technologies;
-  const effectiveYears = Object.keys(safeYears).length
-    ? safeYears
-    : fallbackTrends.years;
 
   const domainEntries = Object.entries(effectiveDomains).sort((a, b) => b[1] - a[1]);
   const techEntries = Object.entries(effectiveTechnologies).sort((a, b) => b[1] - a[1]);
-  const yearEntries = Object.entries(effectiveYears).sort(
-    (a, b) => Number(a[0]) - Number(b[0])
-  );
   const maxDomain = domainEntries[0]?.[1] ?? 0;
   const maxTech = techEntries[0]?.[1] ?? 0;
-  const maxYear = yearEntries.reduce((max, [, value]) => Math.max(max, value), 0);
 
   return (
     <div className="space-y-8">
@@ -192,20 +183,6 @@ export default function AnalyticsDashboardPage() {
               </div>
             ))}
           </div>
-        </div>
-      </div>
-      <div className="glass-card rounded-2xl p-6">
-        <p className="text-sm text-text-200">Yearly Submissions</p>
-        <div className="mt-5 flex items-end gap-3 h-32">
-          {yearEntries.map(([year, value]) => (
-            <div key={year} className="flex-1 flex flex-col items-center gap-2">
-              <div
-                className="w-full rounded-full bg-gradient-to-t from-brand-500/80 to-brand-300/80"
-                style={{ height: maxYear ? `${Math.max((value / maxYear) * 100, 18)}%` : "18%" }}
-              />
-              <span className="text-[11px] text-text-200">{year}</span>
-            </div>
-          ))}
         </div>
       </div>
     </div>
