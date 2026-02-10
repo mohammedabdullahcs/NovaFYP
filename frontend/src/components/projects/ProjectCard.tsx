@@ -110,12 +110,23 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         ))}
       </div>
       <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
-        <Link
-          href={`/app/project/${encodeURIComponent(String(projectId))}`}
-          className="text-accent-500 hover:text-accent-400"
-        >
-          View details
-        </Link>
+        {project.source_url ? (
+          <a
+            href={project.source_url}
+            target="_blank"
+            rel="noreferrer"
+            className="text-accent-500 hover:text-accent-400"
+          >
+            View details
+          </a>
+        ) : (
+          <Link
+            href={`/app/project/${encodeURIComponent(String(projectId))}`}
+            className="text-accent-500 hover:text-accent-400"
+          >
+            View details
+          </Link>
+        )}
         <button
           type="button"
           onClick={handleBookmarkToggle}
@@ -123,16 +134,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         >
           {saved ? "Remove bookmark" : "Save bookmark"}
         </button>
-        {project.source_url ? (
-          <a
-            href={project.source_url}
-            target="_blank"
-            rel="noreferrer"
-            className="text-text-200 hover:text-text-100"
-          >
-            Source URL
-          </a>
-        ) : null}
       </div>
     </motion.div>
   );

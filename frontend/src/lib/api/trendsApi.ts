@@ -1,6 +1,5 @@
-import api from "@/lib/api/http";
+import { cachedGet } from "@/lib/api/http";
 
 export async function getTrends() {
-  const { data } = await api.get("/trends");
-  return data;
+  return cachedGet("/trends");
 }

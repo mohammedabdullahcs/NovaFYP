@@ -1,4 +1,4 @@
-import api from "@/lib/api/http";
+import api, { cachedGet } from "@/lib/api/http";
 
 export interface Project {
   id?: string | number;
@@ -23,11 +23,11 @@ export interface ProjectFilters {
 }
 
 export async function getProjects(filters?: ProjectFilters) {
-  const { data } = await api.get("/projects", { params: filters });
+  const data = await cachedGet("/projects", { params: filters });
   return data?.projects ?? data;
 }
 
 export async function getProjectById(id: string | number) {
-  const { data } = await api.get(`/projects/${id}`);
+  const data = await cachedGet(`/projects/${id}`);
   return data?.project ?? data;
 }
