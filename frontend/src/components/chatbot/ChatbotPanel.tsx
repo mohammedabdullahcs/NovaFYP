@@ -40,28 +40,28 @@ export default function ChatbotPanel() {
 
   return (
     <div
-      className={`grid gap-8 ${
+      className={`grid gap-4 md:gap-8 min-w-0 ${
         isMaximized ? "grid-cols-1" : "lg:grid-cols-[2fr_1fr]"
       }`}
     >
       <div
-        className={`glass-card rounded-2xl p-6 flex flex-col ${
-          isMaximized ? "h-[85vh]" : "h-[70vh]"
+        className={`glass-card rounded-2xl p-3 sm:p-4 md:p-6 flex flex-col min-w-0 ${
+          isMaximized ? "h-[85vh]" : "h-[70vh] md:h-[72vh]"
         }`}
       >
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           <div className="w-12 h-12">
             <LottieWrapper animationData={chatbotAnimation} className="w-12 h-12" />
           </div>
-          <div>
-            <h1 className="text-xl font-display text-text-100">NovaFYP Advisor</h1>
+          <div className="min-w-0">
+            <h1 className="text-lg sm:text-xl font-display text-text-100 truncate">NovaFYP Advisor</h1>
             <p className="text-sm text-text-200">Your RAG-powered assistant</p>
           </div>
           <div className="ml-auto">
             <button
               type="button"
               onClick={() => setIsMaximized((prev) => !prev)}
-              className="text-xs px-3 py-2 rounded-full bg-white/5 text-text-200 hover:text-text-100"
+              className="text-xs px-2 sm:px-3 py-2 rounded-full bg-white/5 text-text-200 hover:text-text-100 whitespace-nowrap"
             >
               {isMaximized ? "Minimize" : "Maximize"}
             </button>
@@ -73,7 +73,7 @@ export default function ChatbotPanel() {
           </div>
         ) : null}
 
-        <div className="mt-6 flex-1 overflow-y-auto space-y-4 pr-2">
+        <div className="mt-4 md:mt-6 flex-1 overflow-y-auto overflow-x-hidden space-y-4 pr-1 sm:pr-2 min-w-0">
           {messages.length === 0 ? (
             <p className="text-text-200">
               Ask anything about final year projects. The advisor will guide you
@@ -83,7 +83,7 @@ export default function ChatbotPanel() {
             messages.map((message, index) => (
               <div key={`${message.role}-${index}`}>
               <div
-                className={`p-3 rounded-xl text-sm max-w-[80%] ${
+                className={`p-3 rounded-xl text-sm max-w-[92%] sm:max-w-[85%] lg:max-w-[80%] break-words overflow-hidden ${
                   message.role === "user"
                     ? "ml-auto bg-brand-500/20 text-text-100"
                     : "bg-white/5 text-text-200"
@@ -96,12 +96,12 @@ export default function ChatbotPanel() {
                 )}
               </div>
               {message.role === "assistant" && message.recommendedProjects?.length ? (
-                <div className="mt-4">
+                <div className="mt-4 min-w-0">
                   <p className="text-sm font-semibold text-text-100 mb-3">
                     Recommended Projects
                   </p>
                   <motion.div
-                    className="grid gap-4 sm:grid-cols-2"
+                    className="grid gap-3 sm:gap-4 sm:grid-cols-2 min-w-0"
                     initial="hidden"
                     animate="visible"
                     variants={cardGridVariants}
@@ -125,7 +125,7 @@ export default function ChatbotPanel() {
           ) : null}
         </div>
 
-        <div className="mt-4">
+        <div className="mt-4 min-w-0">
           <div className="flex flex-wrap gap-2 mb-3">
             {quickPrompts.map((prompt) => (
               <button
@@ -138,10 +138,10 @@ export default function ChatbotPanel() {
               </button>
             ))}
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 min-w-0">
             <input
               type="text"
-              className="flex-1 px-4 py-3 rounded-xl input-surface text-text-100"
+              className="flex-1 min-w-0 px-3 sm:px-4 py-3 rounded-xl input-surface text-text-100"
               placeholder="Type your question..."
               value={input}
               onChange={(event) => setInput(event.target.value)}
@@ -149,7 +149,7 @@ export default function ChatbotPanel() {
             <button
               type="button"
               onClick={handleSend}
-              className="bg-accent-500 hover:bg-accent-400 text-white px-5 rounded-xl transition"
+              className="bg-accent-500 hover:bg-accent-400 text-white px-4 sm:px-5 rounded-xl transition whitespace-nowrap"
             >
               Send
             </button>
@@ -157,8 +157,8 @@ export default function ChatbotPanel() {
         </div>
       </div>
 
-      <div className={`space-y-6 ${isMaximized ? "hidden" : "block"}`}>
-        <div className="glass-card rounded-2xl p-6">
+      <div className={`space-y-4 md:space-y-6 min-w-0 ${isMaximized ? "hidden" : "block"}`}>
+        <div className="glass-card rounded-2xl p-4 md:p-6">
           <h2 className="text-lg font-semibold text-text-100">
             Current Context
           </h2>

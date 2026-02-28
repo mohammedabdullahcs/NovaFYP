@@ -76,15 +76,15 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <motion.div
-      className="glass-card rounded-2xl p-5 border border-transparent hover:border-brand-400/60 transition shadow-glow"
+      className="glass-card rounded-2xl p-4 sm:p-5 border border-transparent hover:border-brand-400/60 transition shadow-glow min-w-0"
       whileHover={{ y: -4 }}
     >
       <div className="flex items-start justify-between gap-4">
-        <div>
-          <h3 className="text-lg font-semibold text-text-100">
+        <div className="min-w-0">
+          <h3 className="text-lg font-semibold text-text-100 break-words">
             {project.title}
           </h3>
-          <p className="text-xs text-text-200 mt-1">
+          <p className="text-xs text-text-200 mt-1 break-words">
             {project.domain || "General"} {project.year ? `- ${project.year}` : ""}
           </p>
         </div>
@@ -94,7 +94,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </span>
         ) : null}
       </div>
-      <p className="text-sm text-text-200 mt-3 line-clamp-3">
+      <p className="text-sm text-text-200 mt-3 line-clamp-3 break-words">
         {project.abstract || "Smart project recommendation aligned to your profile."}
       </p>
       {project.uniqueness_score ? (
