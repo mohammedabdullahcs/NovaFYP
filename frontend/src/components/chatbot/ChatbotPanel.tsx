@@ -149,9 +149,24 @@ export default function ChatbotPanel() {
             <button
               type="button"
               onClick={handleSend}
-              className="bg-accent-500 hover:bg-accent-400 text-white px-4 sm:px-5 rounded-xl transition whitespace-nowrap"
+              aria-label="Send message"
+              title="Send"
+              className="bg-accent-500 hover:bg-accent-400 text-white px-4 sm:px-5 rounded-xl transition whitespace-nowrap inline-flex items-center justify-center"
             >
-              Send
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-4 h-4"
+                aria-hidden="true"
+              >
+                <path d="M22 2L11 13" />
+                <path d="M22 2L15 22L11 13L2 9L22 2Z" />
+              </svg>
             </button>
           </div>
         </div>
