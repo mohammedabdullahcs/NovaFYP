@@ -61,9 +61,45 @@ export default function ChatbotPanel() {
             <button
               type="button"
               onClick={() => setIsMaximized((prev) => !prev)}
-              className="text-xs px-2 sm:px-3 py-2 rounded-full bg-white/5 text-text-200 hover:text-text-100 whitespace-nowrap"
+              aria-label={isMaximized ? "Minimize chat" : "Maximize chat"}
+              title={isMaximized ? "Minimize" : "Maximize"}
+              className="text-xs p-2 rounded-full text-text-200 hover:text-text-100 whitespace-nowrap inline-flex items-center justify-center"
             >
-              {isMaximized ? "Minimize" : "Maximize"}
+              {isMaximized ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-5 h-5"
+                  aria-hidden="true"
+                >
+                  <polyline points="9 3 9 9 3 9" />
+                  <polyline points="15 3 15 9 21 9" />
+                  <polyline points="9 21 9 15 3 15" />
+                  <polyline points="15 21 15 15 21 15" />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-5 h-5"
+                  aria-hidden="true"
+                >
+                  <polyline points="15 3 21 3 21 9" />
+                  <polyline points="9 3 3 3 3 9" />
+                  <polyline points="15 21 21 21 21 15" />
+                  <polyline points="9 21 3 21 3 15" />
+                </svg>
+              )}
             </button>
           </div>
         </div>
