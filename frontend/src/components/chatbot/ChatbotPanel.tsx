@@ -4,6 +4,7 @@ import chatbotAnimation from "@/public/animations/chatbot.json";
 import ProjectCard from "@/components/projects/ProjectCard";
 import ReactMarkdown from "react-markdown";
 import { useChatbotPanel } from "@/lib/hooks/useChatbotPanel";
+import { useEffect, useRef } from "react";
 
 const cardGridVariants = {
   hidden: { opacity: 0 },
@@ -37,6 +38,13 @@ export default function ChatbotPanel() {
     handleSend,
     quickPrompts
   } = useChatbotPanel();
+  const composerRef = useRef<HTMLTextAreaElement | null>(null);
+
+  useEffect(() => {
+    if (!input && composerRef.current) {
+      composerRef.current.style.height = "auto";
+    }
+  }, [input]);
 
   return (
     <div
@@ -174,34 +182,46 @@ export default function ChatbotPanel() {
               </button>
             ))}
           </div>
-          <div className="flex gap-2 min-w-0">
-            <input
-              type="text"
-              className="flex-1 min-w-0 px-3 sm:px-4 py-3 rounded-xl input-surface text-text-100"
+          <div className="input-surface rounded-2xl px-3 sm:px-4 py-2.5 flex items-end gap-2 min-w-0">
+            <textarea
+              ref={composerRef}
+              className="flex-1 min-w-0 bg-transparent text-text-100 placeholder:text-text-200/80 resize-none focus:outline-none leading-6 max-h-40 overflow-y-auto"
               placeholder="Type your question..."
               value={input}
+              rows={1}
               onChange={(event) => setInput(event.target.value)}
+              onInput={(event) => {
+                const element = event.currentTarget;
+                element.style.height = "auto";
+                element.style.height = `${Math.min(element.scrollHeight, 160)}px`;
+              }}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" && event.shiftKey) {
+                  event.preventDefault();
+                  handleSend();
+                }
+              }}
             />
             <button
               type="button"
               onClick={handleSend}
               aria-label="Send message"
-              title="Send"
-              className="bg-accent-500 hover:bg-accent-400 text-white px-4 sm:px-5 rounded-xl transition whitespace-nowrap inline-flex items-center justify-center"
+              title="Send (Shift+Enter)"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white text-base-900 hover:opacity-90 transition inline-flex items-center justify-center shrink-0"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 className="w-4 h-4"
                 aria-hidden="true"
               >
-                <path d="M22 2L11 13" />
-                <path d="M22 2L15 22L11 13L2 9L22 2Z" />
+                <path d="M12 18V6" />
+                <path d="M7 11l5-5 5 5" />
               </svg>
             </button>
           </div>
